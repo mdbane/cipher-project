@@ -30,3 +30,26 @@ class Rot13Cipher(Cipher):
         position = ord(char) - base 
         new_position = (position + self.SHIFT) % self.ALPHABET_SIZE      
         return chr(base + new_position)
+
+
+class Rot47Cipher(Cipher):
+    FIRST_CHAR = 33
+    LAST_CHAR = 126
+    CHARS_COUNT = LAST_CHAR - FIRST_CHAR + 1
+    SHIFT = 47
+
+    def encrypt(self, text: str) -> str:
+        return ''.join(self._rotate_char(char) for char in text)
+
+    def decrypt(self, text: str) -> str:
+        return self.encrypt(text)  
+
+    def _rotate_char(self, char: str) -> str:
+        code = ord(char)
+        if not self.FIRST_CHAR <= code <= self.LAST_CHAR:
+            return char
+
+        position = code - self.FIRST_CHAR
+        new_position = (position + self.SHIFT) % self.CHARS_COUNT
+        return chr(self.FIRST_CHAR + new_position)
+
