@@ -23,3 +23,14 @@ class CipherFacade:
 
     def get_buffer(self) -> list[Text]:
         return self._buffer.get_all()
+
+    def save_buffer(self, file_name: str) -> None:
+        data = [item.to_dict() for item in self._buffer.get_all()]
+        self._file_handler.write(file_name, data)
+        self._buffer.clear()
+
+    def load_file(self, file_name: str) -> list[Text]:
+        data = self._file_handler.read(file_name)
+        items = [Text.from_dict(item) for item in data]
+        self._buffer.extend(items)
+        return items
