@@ -34,7 +34,9 @@ def test_unknown_type_does_not_change_buffer(facade: CipherFacade) -> None:
     assert facade.get_buffer() == []
 
 
-def test_save_buffer_clears_buffer(tmp_path: Path, facade: CipherFacade) -> None:
+def test_save_buffer_clears_buffer(
+    tmp_path: Path, facade: CipherFacade
+) -> None:
     facade.encrypt('Hello', 'rot13')
     facade.save_buffer(str(tmp_path / 'data'))
     assert facade.get_buffer() == []
@@ -52,7 +54,9 @@ def test_save_and_load(tmp_path: Path, facade: CipherFacade) -> None:
     assert facade.get_buffer() == [encrypted, decrypted]
 
 
-def test_saving_twice_does_not_duplicate(tmp_path: Path, facade: CipherFacade) -> None:
+def test_saving_twice_does_not_duplicate(
+    tmp_path: Path, facade: CipherFacade
+) -> None:
     file_name = str(tmp_path / 'data')
     first = facade.encrypt('Hello', 'rot13')
     facade.save_buffer(file_name)
@@ -62,7 +66,9 @@ def test_saving_twice_does_not_duplicate(tmp_path: Path, facade: CipherFacade) -
     assert facade.load_file(file_name) == [first, second]
 
 
-def test_failed_save_keeps_buffer(tmp_path: Path, facade: CipherFacade) -> None:
+def test_failed_save_keeps_buffer(
+    tmp_path: Path, facade: CipherFacade
+) -> None:
     path = tmp_path / 'broken.json'
     path.write_text('not json', encoding='utf-8')
     encrypted = facade.encrypt('Hello', 'rot13')
@@ -73,12 +79,16 @@ def test_failed_save_keeps_buffer(tmp_path: Path, facade: CipherFacade) -> None:
     assert facade.get_buffer() == [encrypted]
 
 
-def test_load_missing_file_raises_error(tmp_path: Path, facade: CipherFacade) -> None:
+def test_load_missing_file_raises_error(
+    tmp_path: Path, facade: CipherFacade
+) -> None:
     with pytest.raises(FileNotFoundError):
         facade.load_file(str(tmp_path / 'missing'))
 
 
-def test_load_invalid_item_does_not_change_buffer(tmp_path: Path, facade: CipherFacade) -> None:
+def test_load_invalid_item_does_not_change_buffer(
+    tmp_path: Path, facade: CipherFacade
+) -> None:
     data = [
         {'text': 'Uryyb', 'rot_type': 'rot13', 'status': 'encrypted'},
         {'tekst': 'Hello'},

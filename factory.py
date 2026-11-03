@@ -7,7 +7,6 @@ class CipherFactory:
         "rot47": Rot47Cipher,
     }
 
-
     @classmethod
     def create(cls, rot_type: str) -> Cipher:
         if rot_type not in cls._ciphers:
