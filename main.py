@@ -2,6 +2,7 @@ from manager import Manager
 
 
 def main() -> None:
+    """Start the cipher application."""
     Manager().run()
 
 

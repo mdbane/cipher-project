@@ -5,6 +5,7 @@ from facade import CipherFacade
 
 
 class Manager:
+    """Manages the console user interface of the cipher application."""
     def __init__(self) -> None:
         self._facade = CipherFacade()
         self._running = True
@@ -18,6 +19,7 @@ class Manager:
         }
 
     def run(self) -> None:
+        """Show the menu and handle user input until the user chooses to exit."""
         while self._running:
             self._show_menu()
             choice = input("Choose an option: ").strip()

@@ -8,7 +8,9 @@ from factory import CipherFactory
     ("rot13", Rot13Cipher),
     ("rot47", Rot47Cipher),
 ])
-def test_create_returns_correct_cipher(rot_type: str, expected_class: type[Cipher]) -> None:
+def test_create_returns_correct_cipher(
+    rot_type: str, expected_class: type[Cipher]
+) -> None:
     assert isinstance(CipherFactory.create(rot_type), expected_class)
 
 
